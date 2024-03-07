@@ -9,11 +9,23 @@ function draw(x, y){
   ctx.fill(circle)
 }
 
+let isMouseDown = false;
 
-canvas.addEvenListener('mousedown',(e) => {
+canvas.addEventListener('mousedown',(e) => {
+  isMouseDown = true;
+})
+
+canvas.addEventListener('mouseup',(e) =>{
+  isMouseDown = false;
+})
+
+canvas.addEventListener('mousemove',(e) =>{
+  if (isMouseDown){
+    return
+  }
   const {
     clientX, clientY
   } = e
-  
-  draw(clientX, clientY)
+  const react = canvas.getBoundingClientRect()
+  draw(clientX - react.left, clientY -react.top)
 })
